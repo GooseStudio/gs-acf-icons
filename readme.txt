@@ -26,6 +26,7 @@ your theme templates that calls the ACF functions.
 == Changelog ==
 
 = 0.1.4 =
+* Remove comment artifacts
 * Remove EDD integration
 
 = 0.1.3 =
