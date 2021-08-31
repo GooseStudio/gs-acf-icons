@@ -1,0 +1,23 @@
+{
+  "name": "goose-studio/gs-acf-icons",
+  "description": "Adds an icon field to ACF",
+  "type": "wordpress-plugin",
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "Andreas Nurbo"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "GooseStudio\\AcfIcons\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "repositories": [],
+  "require": {},
+  "require-dev": {
+    "lucatume/wp-browser": "^2.2",
+    "codeception/visualception": "*"
+  }
+}
