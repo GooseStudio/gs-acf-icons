@@ -1,9 +1,7 @@
-= 0.1.4 =
+= 0.1.3 =
 * Add usage instructions
 * Remove comment artifacts
 * Remove EDD integration
-
-= 0.1.3 =
 * Fix issue with wrong ID targeting on repeater icons
 * Fix issue with missing ID when removing icons on first load
 

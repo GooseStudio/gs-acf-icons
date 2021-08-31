@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: ACF Icons
+Plugin Name: GS ACF Icons
 Plugin URI: https://goose.studio/products/acf-icons/
 Description: Extends ACF plugin with a new field, Icon.
 Version: 0.1.3

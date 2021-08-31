@@ -32,7 +32,9 @@ Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the
 
 == Changelog ==
 
-= 0.1.4 =
+= 0.1.3 =
 * Add usage instructions
 * Remove comment artifacts
 * Remove EDD integration
+* Fix issue with wrong ID targeting on repeater icons
+* Fix issue with missing ID when removing icons on first load
