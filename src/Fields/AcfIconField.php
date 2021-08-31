@@ -166,17 +166,17 @@ class AcfIconField extends acf_field
         <input type="hidden" id="<?= $field_id ?>" name="<?php echo esc_attr($field['name']) ?>"
                value="<?php echo esc_attr($field['value']) ?>"/>
         <div>
-            <div id="preview-<?= $field_id ?>" class="gs-ae-acf-icon-field"
+            <div id="preview-<?= $field_id ?>" class="gs-acf-icon-field"
                  data-acf-field="<?php echo esc_attr($field_id) ?>"
                  style="width: <?= $width ?>px;height:<?= $width ?>px;font-size:<?= $font_size ?>px">
                 <?php if ($css_class): ?>
                     <i class="<?= $css_class ?>"></i>
                 <?php endif ?>
             </div>
-            <button style="height:28px" class="gs-ae-acf-icon-field-select button"
+            <button style="height:28px" class="gs-acf-icon-field-select button"
                     data-acf-field="<?php echo esc_attr($field_id) ?>">Select icon
             </button>
-            <button style="height:28px;" class="gs-ae-acf-icon-field-remove button" data-acf-field="<?php echo esc_attr($field_id) ?>"><i class="fa fa-trash"></i></button>
+            <button style="height:28px;" class="gs-acf-icon-field-remove button" data-acf-field="<?php echo esc_attr($field_id) ?>"><i class="fa fa-trash"></i></button>
         </div>        <?php
     }
 

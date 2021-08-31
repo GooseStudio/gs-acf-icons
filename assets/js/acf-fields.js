@@ -22,7 +22,7 @@ jQuery(function ($) {
     if (icon_library_dialog.length === 0) {
         return;
     }
-    $('.gs-ae-acf-icon-field-remove').on('click', function () {
+    $('.gs-acf-icon-field-remove').on('click', function () {
         $('#icon_css').val('');
         $('#icon_style').val('');
         $('#icon_library').val('');
@@ -40,7 +40,7 @@ jQuery(function ($) {
     if (library_list_wrapper.length === 0) {
         return;
     }
-    $('.gs-ae-acf-icon-field,.gs-ae-acf-icon-field-select').on('click', function (e) {
+    $('.gs-acf-icon-field,.gs-acf-icon-field-select').on('click', function (e) {
         e.preventDefault();
         acf_field = $(this).data('acf-field');
         temp_data = gs_cacf_font_data;
@@ -110,7 +110,7 @@ jQuery(function ($) {
             $('.ui-dialog-titlebar-close').addClass('ui-button');
         },
     });
-    $('.gs-ae-acf-icon-field-remove').on('click', function () {
+    $('.gs-acf-icon-field-remove').on('click', function () {
         $('#icon_css').val('');
         $('#icon_style').val('');
         $('#icon_library').val('');
@@ -210,7 +210,7 @@ acf.addAction('append', function () {
             return;
         }
 
-        $('.gs-ae-acf-icon-field,.gs-ae-acf-icon-field-select').on('click', function (e) {
+        $('.gs-acf-icon-field,.gs-acf-icon-field-select').on('click', function (e) {
             e.preventDefault();
             acf_field = $(this).data('acf-field');
             temp_data = gs_cacf_font_data;
@@ -268,7 +268,7 @@ acf.addAction('append', function () {
                 $('.ui-dialog-titlebar-close').addClass('ui-button');
             },
         });
-        $('.gs-ae-acf-icon-field-remove').on('click', function () {
+        $('.gs-acf-icon-field-remove').on('click', function () {
             $('#icon_css').val('');
             $('#icon_style').val('');
             $('#icon_library').val('');
