@@ -38,7 +38,7 @@ class AcfIconField extends acf_field
         *  label (string) Multiple words, can include spaces, visible when selecting a field type
         */
 
-        $this->label = __('Icon', 'gs-acf');
+        $this->label = __('Icon', 'gs-acf-icons');
 
 
         /*
@@ -135,15 +135,15 @@ class AcfIconField extends acf_field
         *  Please note that you must also have a matching $defaults value for the field name (font_size)
         */
         acf_render_field_setting($field, array(
-            'label' => __('Preview font size', 'gs-acf'),
-            'instructions' => __('The size of the preview', 'gs-acf'),
+            'label' => __('Preview font size', 'gs-acf-icons'),
+            'instructions' => __('The size of the preview', 'gs-acf-icons'),
             'type' => 'text',
             'name' => 'preview_font_size',
             'ui' => 1,
         ));
         acf_render_field_setting($field, array(
-            'label' => __('Return format', 'gs-acf'),
-            'instructions' => __('Which icon format to return', 'gs-acf'),
+            'label' => __('Return format', 'gs-acf-icons'),
+            'instructions' => __('Which icon format to return', 'gs-acf-icons'),
             'type' => 'select',
             'choices' => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_path' => 'SVG File Path', 'svg_raw' => 'Raw SVG'],
             'name' => 'return_format',

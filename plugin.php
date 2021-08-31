@@ -7,7 +7,7 @@ Version: 0.1.3
 Author: Goose Studio
 Author URI: https://goose.studio/
 Copyright: Andreas Nurbo
-Text Domain: gs-acf
+Text Domain: gs-acf-icons
 License: GPLv3
 Domain Path: /lang
 */
@@ -63,7 +63,7 @@ include __DIR__ . '/autoloader.php';
  */
 function gs_acf_icons_load_control_manager()
 {
-    load_plugin_textdomain('gs-acf');
+    load_plugin_textdomain('gs-acf-icons');
 
     $pro = 'advanced-custom-fields-pro/acf.php';
     $free = 'advanced-custom-fields/acf.php';
@@ -96,8 +96,8 @@ function gs_acf_icons_acf_fail_load()
 
         $activation_url = wp_nonce_url('plugins.php?action=activate&amp;plugin=' . $plugin . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $plugin);
 
-        $message = '<p>' . __('ACF Icons is not working because you need to activate the Advanced Custom Fields plugin.', 'gs-acf') . '</p>';
-        $message .= '<p>' . sprintf('<a href="%s" id="gs-ae-activate-acf"  class="button-primary">%s</a>', $activation_url, __('Activate Advanced Custom Fields Now', 'gs-acf')) . '</p>';
+        $message = '<p>' . __('ACF Icons is not working because you need to activate the Advanced Custom Fields plugin.', 'gs-acf-icons') . '</p>';
+        $message .= '<p>' . sprintf('<a href="%s" id="gs-ae-activate-acf"  class="button-primary">%s</a>', $activation_url, __('Activate Advanced Custom Fields Now', 'gs-acf-icons')) . '</p>';
     } else {
         if (!current_user_can('install_plugins')) {
             return;
@@ -105,8 +105,8 @@ function gs_acf_icons_acf_fail_load()
 
         $install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=advanced-custom-fields'), 'install-plugin_advanced-custom-fields');
 
-        $message = '<p>' . __('ACF Icons is not working because you need to install the Advanced Custom Fields plugin', 'gs-acf') . '</p>';
-        $message .= '<p>' . sprintf('<a href="%s"  id="gs-ae-install-acf"  class="button-primary">%s</a>', $install_url, __('Install Advanced Custom Fields Now', 'gs-acf')) . '</p>';
+        $message = '<p>' . __('ACF Icons is not working because you need to install the Advanced Custom Fields plugin', 'gs-acf-icons') . '</p>';
+        $message .= '<p>' . sprintf('<a href="%s"  id="gs-ae-install-acf"  class="button-primary">%s</a>', $install_url, __('Install Advanced Custom Fields Now', 'gs-acf-icons')) . '</p>';
     }
 
     echo '<div class="error"><p>' . $message . '</p></div>';
