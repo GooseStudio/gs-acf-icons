@@ -27,11 +27,13 @@ Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the
 = How do I use this? =
 There are few methods either use a plugin such as Advanced Elements that displays ACF fields or add new code to
 your theme templates that calls the default ACF functions.
-If you are using
+If you are using ACF functions the_field() with you need to enqueue the required CSS.
+Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the correct CSS handle for the selected icon.
 
 == Changelog ==
 
 = 0.1.4 =
+* Add usage instructions
 * Remove comment artifacts
 * Remove EDD integration
 
@@ -50,6 +52,3 @@ If you are using
 = 0.1 =
 * Adds popup dialog for icon selection
 * Adds new ACF icon field
-
-== Upgrade Notice ==
-Add new ACF field that enables usage of icons
