@@ -9,7 +9,12 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 
 == Description ==
+The ACF icon plugin adds a new field to ACF that enables users to select an icon from a popup.
+It supports both font icons and SVG icons.
+You cannot limit to certain icons or add new icon providers as of writing which is version 1.4.
 
+If you are using ACF functions the_field() with you need to enqueue the required CSS.
+Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the correct CSS handle for the selected icon.
 
 == Installation ==
 
@@ -21,7 +26,8 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 = How do I use this? =
 There are few methods either use a plugin such as Advanced Elements that displays ACF fields or add new code to
-your theme templates that calls the ACF functions.
+your theme templates that calls the default ACF functions.
+If you are using
 
 == Changelog ==
 
