@@ -1,8 +1,8 @@
-=== ACF Icons ===
+=== GS ACF Icons ===
 Contributors: andreasnrb, goosestudio
-Tags: some tags
+Tags: acf, icons, advanced custom fields
 Requires at least: 5.0
-Tested up to: 5.3
+Tested up to: 5.8
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -36,19 +36,3 @@ Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the
 * Add usage instructions
 * Remove comment artifacts
 * Remove EDD integration
-
-= 0.1.3 =
-* Fix issue with wrong ID targeting on repeater icons
-* Fix issue with missing ID when removing icons on first load
-
-= 0.1.2 =
-* Fix reference error library_list_wrapper not defined
-* Fix undefined offset with empty icon fields
-
-= 0.1.1 =
-* Fix JS conflict
-* Fix wrong input field type
-
-= 0.1 =
-* Adds popup dialog for icon selection
-* Adds new ACF icon field
