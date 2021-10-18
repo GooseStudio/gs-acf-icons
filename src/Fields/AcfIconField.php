@@ -38,7 +38,7 @@ class AcfIconField extends acf_field
         *  label (string) Multiple words, can include spaces, visible when selecting a field type
         */
 
-        $this->label = __('Icon', 'gs-acf-icons');
+        $this->label = __('Icon', 'gs-acf');
 
 
         /*
@@ -135,15 +135,15 @@ class AcfIconField extends acf_field
         *  Please note that you must also have a matching $defaults value for the field name (font_size)
         */
         acf_render_field_setting($field, array(
-            'label' => __('Preview font size', 'gs-acf-icons'),
-            'instructions' => __('The size of the preview', 'gs-acf-icons'),
+            'label' => __('Preview font size', 'gs-acf'),
+            'instructions' => __('The size of the preview', 'gs-acf'),
             'type' => 'text',
             'name' => 'preview_font_size',
             'ui' => 1,
         ));
         acf_render_field_setting($field, array(
-            'label' => __('Return format', 'gs-acf-icons'),
-            'instructions' => __('Which icon format to return', 'gs-acf-icons'),
+            'label' => __('Return format', 'gs-acf'),
+            'instructions' => __('Which icon format to return', 'gs-acf'),
             'type' => 'select',
             'choices' => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_path' => 'SVG File Path', 'svg_raw' => 'Raw SVG'],
             'name' => 'return_format',
@@ -163,10 +163,10 @@ class AcfIconField extends acf_field
         $field_id = $field['id'];
         ?>
         <!--suppress HtmlFormInputWithoutLabel -->
-        <input type="hidden" id="<?= $field_id ?>" name="<?php echo esc_attr($field['name']) ?>"
+        <input type="hidden" name="<?php echo esc_attr($field['name']) ?>"
                value="<?php echo esc_attr($field['value']) ?>"/>
         <div>
-            <div id="preview-<?= $field_id ?>" class="gs-acf-icon-field"
+            <div class="gs-acf-icon-field"
                  data-acf-field="<?php echo esc_attr($field_id) ?>"
                  style="width: <?= $width ?>px;height:<?= $width ?>px;font-size:<?= $font_size ?>px">
                 <?php if ($css_class): ?>
@@ -221,6 +221,7 @@ class AcfIconField extends acf_field
             'wp-jquery-ui-dialog'
         ), $version);
         wp_enqueue_style('gs-acfe-fields');
+        wp_dequeue_style('font-awesome-5-all');
         wp_enqueue_style('ionicons');
         wp_enqueue_style('font-awesome-5-all');
     }
@@ -284,7 +285,7 @@ class AcfIconField extends acf_field
                         </div>
                         <div style="text-align:center;width:100%;margin-top:20px">
                             <button class="icon-library-load-more button button-secondary"
-                                    style="padding:10px;font-size:20px;height: auto;display: none;">Load more icons ...
+                                    style="padding:10px;font-size:20px;height: auto;">Load more icons ...
                             </button>
                         </div>
                     </div>
@@ -346,56 +347,85 @@ class AcfIconField extends acf_field
         switch ($field['return_format']) {
             case 'svg_sprite_url':
                 if ('ionicons' === $library) {
-                    $svg = 'ionicons2.svg#' . $css_class;
+                    $svg = 'ionicons.svg#' . $css_class;
                 } elseif ('font-awesome' === $library) {
-                    $svg = substr($css_class, 3);
-                    if ($style === 'fas') {
-                        $svg = "solid/$svg";
-                    } else if ($style === 'far') {
-                        $svg = "regular/$svg";
-                    } else {
-                        $svg = "brands/$svg";
-                    }
+	                $f_type = substr($style, 0, 3);
+	                if ($f_type === 'fas') {
+		                $sprites = 'solid';
+	                } else if ($f_type === 'far') {
+		                $sprites = 'regular';
+	                } else {
+		                $sprites = 'brands';
+	                }
+	                return $this->get_svg_url_path( $library, $css, $sprites, $css );
+
                 } elseif ('elementor' === $library) {
                     $svg = 'eicons.svg#' . trim($css_class);
                 }
-
-                return sprintf(plugin_dir_url(GS_ACF_ICONS_DIR) . '/assets/dependencies/%s/svgs/%s', $library, $svg);
+                return sprintf(plugin_dir_url(GS_ACF_ICONS_PLUGIN_FILE__FILE) . '/assets/dependencies/%s/sprites/%s', $library, $svg);
             case 'svg_path':
-                if ('ionicons' === $library) {
-                    $svg = substr($css_class, 4);
-                } elseif ('font-awesome' === $library) {
-                    $f_type = substr($style, 0, 3);
-                    if ($f_type === 'fas') {
-                        $svg = "solid/$css";
-                    } else if ($f_type === 'far') {
-                        $svg = "regular/$css";
-                    } else {
-                        $svg = "brands/$css";
-                    }
-                } elseif ('elementor' === $library) {
-                    $svg = substr($css_class, 7);
-                }
-
-                return sprintf(GS_ACF_ICONS_DIR . '/assets/dependencies/%s/svgs/%s.svg', $library, $svg);
+                return $this->get_svg_file_path($library, $css, $css_class);
             case 'svg_raw':
-                if ('ionicons' === $library) {
-                    $svg = substr($css_class, 4);
-                } elseif ('font-awesome' === $library) {
-                    $svg = substr($css_class, 3);
-                    if ($style === 'fas') {
-                        $svg = "solid/$svg";
-                    } else if ($style === 'far') {
-                        $svg = "regular/$svg";
-                    } else {
-                        $svg = "brands/$svg";
-                    }
-                } elseif ('elementor' === 'library') {
-                    $svg = substr($css_class, 7);
-                }
-                return file_get_contents(sprintf(GS_ACF_ICONS_DIR . '/assets/dependencies/%s/svgs/%s.svg', $library, $svg));
+                return file_get_contents($this->get_svg_file_path($library, $css, $css_class));
             default:
                 return $css_class;
         }
     }
+
+	public function get_base_dir($path) {
+		$dir = wp_get_upload_dir();
+        $base_dir = $dir['basedir'];
+        if(!file_exists($base_dir . '/acf-icons/'.$path)) {
+            wp_mkdir_p($base_dir . '/acf-icons/'.$path);
+        }
+        return $base_dir . '/acf-icons/'.$path;
+    }
+
+	/**
+	 * @param $library
+	 * @param $css
+     * @param $css_class
+	 *
+	 * @return string
+	 */
+	public function get_svg_file_path($library, $css, $css_class) {
+        if ('ionicons' === $library) {
+            $sprites = 'ionicons';
+        } elseif ('font-awesome' === $library) {
+            $f_type = substr($css_class, 0, 3);
+            if ($f_type === 'fas') {
+                $sprites = 'solid';
+            } else if ($f_type === 'far') {
+                $sprites = 'regular';
+            } else {
+                $sprites = 'brands';
+            }
+        } elseif ('elementor' === $library) {
+            $css_class = trim($css_class);
+            $sprites = 'eicons';
+        }
+
+        $dir       = $this->get_base_dir( $library . '/' );
+		$file_path = $dir . $css . '.svg';
+		if ( ! file_exists( $file_path ) ) {
+			$xml    = simplexml_load_file( sprintf( GS_ACF_ICONS_DIR . '/assets/dependencies/%s/sprites/%s.svg', $library, $sprites ) );
+			$symbol = $xml->xpath( "//*[@id=\"$css_class\"]" );
+			$svg = str_replace( 'symbol', 'svg', $symbol[0]->asXML() );
+            $svg = str_replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ', $svg);
+			file_put_contents( $file_path, $svg );
+		}
+
+		return $file_path;
+	}
+
+	public function get_svg_url_path( $library, $css, $sprites, $css_class ) {
+		$dir       = $this->get_base_dir( $library . '/' );
+		$file_path = $dir . $css . '.svg';
+		if ( ! file_exists( $file_path ) ) {
+            $this->get_svg_file_path($library, $css, $css_class);
+		}
+		$dir = wp_get_upload_dir();
+		$base_url = $dir['baseurl']. '/acf-icons/'.$library.'/';
+        return $base_url . $css . '.svg';
+	}
 }

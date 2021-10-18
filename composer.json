@@ -15,7 +15,9 @@
   },
   "minimum-stability": "dev",
   "repositories": [],
-  "require": {},
+  "require": {
+    "ext-simplexml": "*"
+  },
   "require-dev": {
     "lucatume/wp-browser": "^2.2",
     "codeception/visualception": "*"

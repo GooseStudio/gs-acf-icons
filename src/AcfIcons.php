@@ -57,7 +57,7 @@ class AcfIcons
     {
         $url = plugin_dir_url(GS_ACF_ICONS_PLUGIN_FILE__FILE);
         wp_register_style('ionicons', "{$url}assets/dependencies/ionicons/css/ionicons.min.css", array(), '4.5.10-1');
-        wp_register_style('font-awesome-5-all', "{$url}assets/dependencies/font-awesome/css/all.css", array(), '5.11.2');
+        wp_register_style('font-awesome-5-all', "{$url}assets/dependencies/font-awesome/css/all.min.css", array(), '5.11.2');
     }
 
     /**
@@ -67,6 +67,6 @@ class AcfIcons
     {
         $url = plugin_dir_url(GS_ACF_ICONS_PLUGIN_FILE__FILE);
         wp_register_style('ionicons', "{$url}assets/dependencies/ionicons/css/ionicons.min.css", array(), '4.5.10-1');
-        wp_register_style('font-awesome-5-all', "{$url}assets/dependencies/font-awesome/css/all.css", array(), '5.11.2');
+        wp_register_style('font-awesome-5-all', "{$url}assets/dependencies/font-awesome/css/all.min.css", array(), '5.11.2');
     }
 }
