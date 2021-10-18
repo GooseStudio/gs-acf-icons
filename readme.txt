@@ -38,17 +38,13 @@ If you are using ACF functions the_field() with you need to enqueue the required
 Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the correct CSS handle for the selected icon.
 
 == Changelog ==
-= 0.1.4 =
-* Remove EDD integration
-* Remove single SVG files
-* Remove duplicate JavaScript
-* Add on request SVG generation
-* Fix wrong URL when return format is URL
-* Fix compatibility when used as subfield with Repeater field
-
 = 0.1.3 =
+* Add on request SVG generation
 * Add usage instructions
 * Remove comment artifacts
-* Remove EDD integration
+* Remove single SVG files
+* Remove duplicate JavaScript
 * Fix issue with wrong ID targeting on repeater icons
 * Fix issue with missing ID when removing icons on first load
+* Fix wrong URL when return format is URL
+* Fix compatibility when used as subfield with Repeater field
