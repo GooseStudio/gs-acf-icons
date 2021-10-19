@@ -38,7 +38,7 @@ if (!defined('ABSPATH')) {
 if (version_compare(PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION, '5.6', '<')) {
     add_action('admin_notices', function () {
         $message = sprintf('ACF Icons requires at least PHP version 5.6. You currently have %s. ', PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION);
-        echo '<div class="error"><p>' . $message . '</p></div>';
+        echo '<div class="error"><p>' . esc_html($message) . '</p></div>';
     });
 
     return;
@@ -109,7 +109,7 @@ function gs_acf_icons_acf_fail_load()
         $message .= '<p>' . sprintf('<a href="%s"  id="gs-ae-install-acf"  class="button-primary">%s</a>', $install_url, __('Install Advanced Custom Fields Now', 'gs-acf-icons')) . '</p>';
     }
 
-    echo '<div class="error"><p>' . $message . '</p></div>';
+    echo '<div class="error">' . esc_html($message) . '</div>';
 }
 
 function gs_acf_icons_is_acf_installed()
