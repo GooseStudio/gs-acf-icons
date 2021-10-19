@@ -168,9 +168,9 @@ class AcfIconField extends acf_field
         <div>
             <div class="gs-acf-icon-field"
                  data-acf-field="<?php echo esc_attr($field_id) ?>"
-                 style="width: <?= esc_attr($width) ?>px;height:<?= esc_attr($width) ?>px;font-size:<?= esc_attr($font_size) ?>px">
+                 style="width: <?php echo esc_attr($width) ?>px;height:<?php echo esc_attr($width) ?>px;font-size:<?php echo esc_attr($font_size) ?>px">
                 <?php if ($css_class): ?>
-                    <i class="<?= esc_attr($css_class) ?>"></i>
+                    <i class="<?php echo esc_attr($css_class) ?>"></i>
                 <?php endif ?>
             </div>
             <button style="height:28px" class="gs-acf-icon-field-select button"
