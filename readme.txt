@@ -1,6 +1,7 @@
 === GS ACF Icons ===
 Contributors: andreasnrb, goosestudio
 Tags: acf, icons, advanced custom fields
+Stable tag: 0.1.3
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
