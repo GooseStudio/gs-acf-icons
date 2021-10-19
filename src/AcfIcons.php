@@ -6,6 +6,7 @@ use GooseStudio\AcfIcons\Fields\AcfFields;
 
 /**
  * Class AcfIcons
+ *
  * @package GooseStudio\AcfIcons
  */
 class AcfIcons
@@ -23,7 +24,7 @@ class AcfIcons
 
     public function upgrade_check()
     {
-        require_once ABSPATH . '/wp-includes/pluggable.php';
+        include_once ABSPATH . '/wp-includes/pluggable.php';
 
         if (is_admin() && current_user_can('manage_options') && get_option('gs_acf_icons_version') !== GS_ACF_ICONS_VERSION) {
             $this->upgrade();

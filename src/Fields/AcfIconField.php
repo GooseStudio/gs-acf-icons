@@ -15,12 +15,12 @@ class AcfIconField extends acf_field
     *
     *  This function will setup the field type data
     *
-    *  @type	function
-    *  @date	5/03/2014
-    *  @since	5.0.0
+    *  @type    function
+    *  @date    5/03/2014
+    *  @since    5.0.0
     *
-    *  @param	n/a
-    *  @return	n/a
+    *  @param    n/a
+    *  @return    n/a
     */
 
     private $settings;
@@ -83,12 +83,12 @@ class AcfIconField extends acf_field
     *
     *  Create extra settings for your field. These are visible when editing a field
     *
-    *  @type	action
-    *  @since	3.6
-    *  @date	23/01/13
+    *  @type    action
+    *  @since    3.6
+    *  @date    23/01/13
     *
-    *  @param	$field (array) the $field being edited
-    *  @return	n/a
+    *  @param    $field (array) the $field being edited
+    *  @return    n/a
     */
 
 
@@ -96,14 +96,14 @@ class AcfIconField extends acf_field
     {
         $prefix = substr($css_class, 0, 3);
         switch ($prefix) {
-            case 'ion':
-                return 'ionicons';
-            case 'fas':
-            case 'fab':
-            case 'far':
-                return 'font-awesome-5-all';
-            case 'eic':
-                return 'elementor-icons';
+        case 'ion':
+            return 'ionicons';
+        case 'fas':
+        case 'fab':
+        case 'far':
+            return 'font-awesome-5-all';
+        case 'eic':
+            return 'elementor-icons';
         }
         return '';
     }
@@ -114,12 +114,12 @@ class AcfIconField extends acf_field
     *  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
     *  Use this action to add CSS + JavaScript to assist your render_field() action.
     *
-    *  @type	action (admin_enqueue_scripts)
-    *  @since	3.6
-    *  @date	23/01/13
+    *  @type    action (admin_enqueue_scripts)
+    *  @since    3.6
+    *  @date    23/01/13
     *
-    *  @param	n/a
-    *  @return	n/a
+    *  @param    n/a
+    *  @return    n/a
     */
 
     public function render_field_settings($field)
@@ -134,21 +134,25 @@ class AcfIconField extends acf_field
         *  More than one setting can be added by copy/paste the above code.
         *  Please note that you must also have a matching $defaults value for the field name (font_size)
         */
-        acf_render_field_setting($field, array(
+        acf_render_field_setting(
+            $field, array(
             'label' => __('Preview font size', 'gs-acf'),
             'instructions' => __('The size of the preview', 'gs-acf'),
             'type' => 'text',
             'name' => 'preview_font_size',
             'ui' => 1,
-        ));
-        acf_render_field_setting($field, array(
+            )
+        );
+        acf_render_field_setting(
+            $field, array(
             'label' => __('Return format', 'gs-acf'),
             'instructions' => __('Which icon format to return', 'gs-acf'),
             'type' => 'select',
             'choices' => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_path' => 'SVG File Path', 'svg_raw' => 'Raw SVG'],
             'name' => 'return_format',
             'ui' => 1,
-        ));
+            )
+        );
     }
 
     public function render_field($field)
@@ -169,7 +173,7 @@ class AcfIconField extends acf_field
             <div class="gs-acf-icon-field"
                  data-acf-field="<?php echo esc_attr($field_id) ?>"
                  style="width: <?php echo esc_attr($width) ?>px;height:<?php echo esc_attr($width) ?>px;font-size:<?php echo esc_attr($font_size) ?>px">
-                <?php if ($css_class): ?>
+                <?php if ($css_class) : ?>
                     <i class="<?php echo esc_attr($css_class) ?>"></i>
                 <?php endif ?>
             </div>
@@ -186,12 +190,12 @@ class AcfIconField extends acf_field
     *  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
     *  Use this action to add CSS + JavaScript to assist your render_field() action.
     *
-    *  @type	action (admin_footer)
-    *  @since	3.6
-    *  @date	23/01/13
+    *  @type    action (admin_footer)
+    *  @since    3.6
+    *  @date    23/01/13
     *
-    *  @param	n/a
-    *  @return	n/a
+    *  @param    n/a
+    *  @return    n/a
     */
 
     public function input_admin_enqueue_scripts()
@@ -206,29 +210,38 @@ class AcfIconField extends acf_field
 
         // register & include JS
         wp_register_script('gs-acfe-fields-mappings', "{$url}assets/dependencies/mappings.js", array(), $version);
-        wp_register_script('gs-acfe-fields', "{$url}assets/js/acf-fields.js", array(
+        wp_register_script(
+            'gs-acfe-fields', "{$url}assets/js/acf-fields.js", array(
             'acf-input',
             'wp-util',
             'jquery-ui-dialog',
             'gs-acfe-fields-mappings'
-        ), $version);
+            ), $version
+        );
         wp_enqueue_script('gs-acfe-fields');
 
 
         // register & include CSS
-        wp_register_style('gs-acfe-fields', "{$url}assets/css/acf-fields.css", array(
+        wp_register_style(
+            'gs-acfe-fields', "{$url}assets/css/acf-fields.css", array(
             'acf-input',
             'wp-jquery-ui-dialog'
-        ), $version);
+            ), $version
+        );
         wp_enqueue_style('gs-acfe-fields');
         wp_dequeue_style('font-awesome-5-all');
         wp_enqueue_style('ionicons');
         wp_enqueue_style('font-awesome-5-all');
     }
 
-    /** @noinspection PhpUnused */
+    /**
+     * 
+     *
+     * @noinspection PhpUnused 
+     */
     public function input_admin_footer($fields)
-    { ?>
+    {
+        ?>
         <div id="icon-dialog"></div>
         <?php // Template for the media frame: used both in the media grid and in the media modal.
         ?>
@@ -312,7 +325,8 @@ class AcfIconField extends acf_field
             <# }); #>
         </script>
         <?php
-    }/** @noinspection PhpUnusedParameterInspection */
+    }
+    /** @noinspection PhpUnusedParameterInspection */
     /** @noinspection PhpUnusedParameterInspection */
 
     /**
@@ -320,16 +334,14 @@ class AcfIconField extends acf_field
      *
      *  This filter is appied to the $value after it is loaded from the db and before it is returned to the template
      *
-     * @param    $value (mixed) the value which was loaded from the database
-     * @param    $post_id (mixed) the $post_id from which the value was loaded
-     * @param    $field (array) the field array holding all the field options
+     * @param $value   (mixed) the value which was loaded from the database
+     * @param $post_id (mixed) the $post_id from which the value was loaded
+     * @param $field   (array) the field array holding all the field options
      *
-     * @return    $value (mixed) the modified value
-     * @since    3.6
-     * @date    23/01/13
-     *
+     * @return $value (mixed) the modified value
+     * @since  3.6
+     * @date   23/01/13
      */
-
     public function format_value($value, $post_id, $field)
     {
         // bail early if no value
@@ -339,41 +351,42 @@ class AcfIconField extends acf_field
 
         }
         list($library, $css, $style) = explode(':', $value);
-        //					'choices'       => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_url' => 'SVG URL', 'svg_raw' => 'Raw SVG'],
+        //                    'choices'       => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_url' => 'SVG URL', 'svg_raw' => 'Raw SVG'],
         $css_class = str_replace('%', $css, $style);
         if ($css_class === $style) {
             $css_class = $style . ' ' . $css;
         }
         switch ($field['return_format']) {
-            case 'svg_sprite_url':
-                if ('ionicons' === $library) {
-                    $svg = 'ionicons.svg#' . $css_class;
-                } elseif ('font-awesome' === $library) {
-	                $f_type = substr($style, 0, 3);
-	                if ($f_type === 'fas') {
-		                $sprites = 'solid';
-	                } else if ($f_type === 'far') {
-		                $sprites = 'regular';
-	                } else {
-		                $sprites = 'brands';
-	                }
-	                return $this->get_svg_url_path( $library, $css, $sprites, $css );
-
-                } elseif ('elementor' === $library) {
-                    $svg = 'eicons.svg#' . trim($css_class);
+        case 'svg_sprite_url':
+            if ('ionicons' === $library) {
+                $svg = 'ionicons.svg#' . $css_class;
+            } elseif ('font-awesome' === $library) {
+                $f_type = substr($style, 0, 3);
+                if ($f_type === 'fas') {
+                     $sprites = 'solid';
+                } else if ($f_type === 'far') {
+                    $sprites = 'regular';
+                } else {
+                    $sprites = 'brands';
                 }
-                return sprintf(plugin_dir_url(GS_ACF_ICONS_PLUGIN_FILE__FILE) . '/assets/dependencies/%s/sprites/%s', $library, $svg);
-            case 'svg_path':
-                return $this->get_svg_file_path($library, $css, $css_class);
-            case 'svg_raw':
-                return file_get_contents($this->get_svg_file_path($library, $css, $css_class));
-            default:
-                return $css_class;
+                    return $this->get_svg_url_path($library, $css, $sprites, $css);
+
+            } elseif ('elementor' === $library) {
+                $svg = 'eicons.svg#' . trim($css_class);
+            }
+            return sprintf(plugin_dir_url(GS_ACF_ICONS_PLUGIN_FILE__FILE) . '/assets/dependencies/%s/sprites/%s', $library, $svg);
+        case 'svg_path':
+            return $this->get_svg_file_path($library, $css, $css_class);
+        case 'svg_raw':
+            return file_get_contents($this->get_svg_file_path($library, $css, $css_class));
+        default:
+            return $css_class;
         }
     }
 
-	public function get_base_dir($path) {
-		$dir = wp_get_upload_dir();
+    public function get_base_dir($path)
+    {
+        $dir = wp_get_upload_dir();
         $base_dir = $dir['basedir'];
         if(!file_exists($base_dir . '/acf-icons/'.$path)) {
             wp_mkdir_p($base_dir . '/acf-icons/'.$path);
@@ -381,14 +394,15 @@ class AcfIconField extends acf_field
         return $base_dir . '/acf-icons/'.$path;
     }
 
-	/**
-	 * @param $library
-	 * @param $css
+    /**
+     * @param $library
+     * @param $css
      * @param $css_class
-	 *
-	 * @return string
-	 */
-	public function get_svg_file_path($library, $css, $css_class) {
+     *
+     * @return string
+     */
+    public function get_svg_file_path($library, $css, $css_class)
+    {
         if ('ionicons' === $library) {
             $sprites = 'ionicons';
         } elseif ('font-awesome' === $library) {
@@ -405,27 +419,28 @@ class AcfIconField extends acf_field
             $sprites = 'eicons';
         }
 
-        $dir       = $this->get_base_dir( $library . '/' );
-		$file_path = $dir . $css . '.svg';
-		if ( ! file_exists( $file_path ) ) {
-			$xml    = simplexml_load_file( sprintf( GS_ACF_ICONS_DIR . '/assets/dependencies/%s/sprites/%s.svg', $library, $sprites ) );
-			$symbol = $xml->xpath( "//*[@id=\"$css_class\"]" );
-			$svg = str_replace( 'symbol', 'svg', $symbol[0]->asXML() );
-            $svg = str_replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ', $svg);
-			file_put_contents( $file_path, $svg );
-		}
+        $dir       = $this->get_base_dir($library . '/');
+        $file_path = $dir . $css . '.svg';
+        if (! file_exists($file_path) ) {
+            $xml    = simplexml_load_file(sprintf(GS_ACF_ICONS_DIR . '/assets/dependencies/%s/sprites/%s.svg', $library, $sprites));
+            $symbol = $xml->xpath("//*[@id=\"$css_class\"]");
+            $svg = str_replace('symbol', 'svg', $symbol[0]->asXML());
+            $svg = str_replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', $svg);
+            file_put_contents($file_path, $svg);
+        }
 
-		return $file_path;
-	}
+        return $file_path;
+    }
 
-	public function get_svg_url_path( $library, $css, $sprites, $css_class ) {
-		$dir       = $this->get_base_dir( $library . '/' );
-		$file_path = $dir . $css . '.svg';
-		if ( ! file_exists( $file_path ) ) {
+    public function get_svg_url_path( $library, $css, $sprites, $css_class )
+    {
+        $dir       = $this->get_base_dir($library . '/');
+        $file_path = $dir . $css . '.svg';
+        if (! file_exists($file_path) ) {
             $this->get_svg_file_path($library, $css, $css_class);
-		}
-		$dir = wp_get_upload_dir();
-		$base_url = $dir['baseurl']. '/acf-icons/'.$library.'/';
+        }
+        $dir = wp_get_upload_dir();
+        $base_url = $dir['baseurl']. '/acf-icons/'.$library.'/';
         return $base_url . $css . '.svg';
-	}
+    }
 }

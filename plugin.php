@@ -13,7 +13,6 @@ Domain Path: /lang
 */
 
 /**
- *
  * Copyright (C) 2021  Andreas Nurbo
  *
  * This program is free software: you can redistribute it and/or modify
@@ -36,10 +35,12 @@ if (!defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 if (version_compare(PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION, '5.6', '<')) {
-    add_action('admin_notices', function () {
-        $message = sprintf('ACF Icons requires at least PHP version 5.6. You currently have %s. ', PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION);
-        echo '<div class="error"><p>' . esc_html($message) . '</p></div>';
-    });
+    add_action(
+        'admin_notices', function () {
+            $message = sprintf('ACF Icons requires at least PHP version 5.6. You currently have %s. ', PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION);
+            echo '<div class="error"><p>' . esc_html($message) . '</p></div>';
+        }
+    );
 
     return;
 }
@@ -50,7 +51,7 @@ define('GS_ACF_ICONS_DIR', __DIR__);
 define('GS_ACF_ICONS_VERSION', '0.1.3');
 define('GS_ACF_ICONS_ASSET_VERSION', GS_ACF_ICONS_VERSION . '.1');
 
-include __DIR__ . '/autoloader.php';
+require __DIR__ . '/autoloader.php';
 
 (new AcfIcons())->init();
 
@@ -58,8 +59,7 @@ include __DIR__ . '/autoloader.php';
  * Load gettext translate for our text domain.
  *
  * @return void
- * @since 0.1
- *
+ * @since  0.1
  */
 function gs_acf_icons_load_control_manager()
 {
@@ -114,7 +114,7 @@ function gs_acf_icons_acf_fail_load()
 
 function gs_acf_icons_is_acf_installed()
 {
-    require_once ABSPATH . '/wp-admin/includes/plugin.php';
+    include_once ABSPATH . '/wp-admin/includes/plugin.php';
     $file_path1 = 'advanced-custom-fields-pro/acf.php';
     $file_path2 = 'advanced-custom-fields/acf.php';
     $installed_plugins = get_plugins();
@@ -124,7 +124,7 @@ function gs_acf_icons_is_acf_installed()
 
 function gs_acf_icons_get_acf_version()
 {
-    require_once ABSPATH . '/wp-admin/includes/plugin.php';
+    include_once ABSPATH . '/wp-admin/includes/plugin.php';
     $file_path1 = 'advanced-custom-fields-pro/acf.php';
     $file_path2 = 'advanced-custom-fields/acf.php';
     $installed_plugins = get_plugins();
