@@ -1,16 +1,18 @@
 <?php
-/*
-Plugin Name: GS ACF Icons
-Plugin URI: https://goose.studio/products/acf-icons/
-Description: Extends ACF plugin with a new field, Icon.
-Version: 0.1.3
-Author: Goose Studio
-Author URI: https://goose.studio/
-Copyright: Andreas Nurbo
-Text Domain: gs-acf-icons
-License: GPLv3
-Domain Path: /lang
-*/
+/**
+ * Plugin Name: GS ACF Icons
+ * Plugin URI: https://goose.studio/products/acf-icons/
+ * Description: Extends ACF plugin with a new field, Icon.
+ * Version: 0.1.3
+ * Author: Goose Studio
+ * Author URI: https://goose.studio/
+ * Copyright: Andreas Nurbo
+ * Text Domain: gs-acf-icons
+ * License: GPLv3
+ * Domain Path: /lang
+ *
+ * @package gs-acf-icons
+ */
 
 /**
  * Copyright (C) 2021  Andreas Nurbo
