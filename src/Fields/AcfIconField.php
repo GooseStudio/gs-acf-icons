@@ -148,7 +148,7 @@ class AcfIconField extends acf_field
             'label' => __('Return format', 'gs-acf'),
             'instructions' => __('Which icon format to return', 'gs-acf'),
             'type' => 'select',
-            'choices' => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_path' => 'SVG File Path', 'svg_raw' => 'Raw SVG'],
+            'choices' => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_url' => 'SVG URL', 'svg_path' => 'SVG File Path', 'svg_raw' => 'Raw SVG'],
             'name' => 'return_format',
             'ui' => 1,
             )
@@ -356,30 +356,32 @@ class AcfIconField extends acf_field
             $css_class = $style . ' ' . $css;
         }
         switch ($field['return_format']) {
-        case 'svg_sprite_url':
-	        $svg = '';
-            if ('ionicons' === $library) {
-                $svg = 'ionicons.svg#' . $css_class;
-            } elseif ('font-awesome' === $library) {
-                $f_type = substr($style, 0, 3);
-                if ($f_type === 'fas') {
-                     $svg = 'solid.svg';
-                } else if ($f_type === 'far') {
-                    $svg = 'regular.svg';
-                } else {
-                    $svg = 'brands.svg';
+            case 'svg_sprite_url':
+                $svg = '';
+                if ('ionicons' === $library) {
+                    $svg = 'ionicons.svg#' . $css_class;
+                } elseif ('font-awesome' === $library) {
+                    $f_type = substr($style, 0, 3);
+                    if ($f_type === 'fas') {
+                         $svg = 'solid.svg';
+                    } else if ($f_type === 'far') {
+                        $svg = 'regular.svg';
+                    } else {
+                        $svg = 'brands.svg';
+                    }
+                    $svg=$svg.'#'.$css;
+                } elseif ('elementor' === $library) {
+                    $svg = 'eicons.svg#' . trim($css_class);
                 }
-                $svg=$svg.'#'.$css;
-            } elseif ('elementor' === $library) {
-                $svg = 'eicons.svg#' . trim($css_class);
-            }
-            return sprintf(plugin_dir_url(GS_ACF_ICONS_PLUGIN_FILE__FILE) . '/assets/dependencies/%s/sprites/%s', $library, $svg);
-        case 'svg_path':
-            return $this->get_svg_file_path($library, $css, $css_class);
-        case 'svg_raw':
-            return file_get_contents($this->get_svg_file_path($library, $css, $css_class));
-        default:
-            return $css_class;
+                return sprintf(plugin_dir_url(GS_ACF_ICONS_PLUGIN_FILE__FILE) . '/assets/dependencies/%s/sprites/%s', $library, $svg);
+            case 'svg_url':
+                return $this->get_svg_url_path($library, $css, $css_class);
+            case 'svg_path':
+                return $this->get_svg_file_path($library, $css, $css_class);
+            case 'svg_raw':
+                return file_get_contents($this->get_svg_file_path($library, $css, $css_class));
+            default:
+                return $css_class;
         }
     }
 
@@ -394,9 +396,9 @@ class AcfIconField extends acf_field
     }
 
     /**
-     * @param $library
-     * @param $css
-     * @param $css_class
+     * @param string  $library
+     * @param string  $css
+     * @param string  $css_class
      *
      * @return string
      */
@@ -433,6 +435,13 @@ class AcfIconField extends acf_field
         return $file_path;
     }
 
+	/**
+	 * @param string $library
+	 * @param string  $css
+	 * @param string  $css_class
+	 *
+	 * @return string
+	 */
     public function get_svg_url_path( $library, $css, $css_class )
     {
         $dir       = $this->get_base_dir($library . '/');
