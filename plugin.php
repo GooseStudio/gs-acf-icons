@@ -77,6 +77,9 @@ function gs_acf_icons_load_control_manager()
 
 add_action('plugins_loaded', 'gs_acf_icons_load_control_manager');
 
+/**
+ * Returns message if ACF fails to load
+ */
 function gs_acf_icons_acf_fail_load()
 {
     $screen = get_current_screen();
@@ -112,6 +115,11 @@ function gs_acf_icons_acf_fail_load()
     echo '<div class="error">' . esc_html($message) . '</div>';
 }
 
+/**
+ * Checks if ACF is installed
+ *
+ * @return bool
+ */
 function gs_acf_icons_is_acf_installed()
 {
     include_once ABSPATH . '/wp-admin/includes/plugin.php';
@@ -122,6 +130,11 @@ function gs_acf_icons_is_acf_installed()
     return isset($installed_plugins[$file_path1]) || isset($installed_plugins[$file_path2]);
 }
 
+/**
+ * Returns ACF version, Free or Pro
+ *
+ * @return string
+ */
 function gs_acf_icons_get_acf_version()
 {
     include_once ABSPATH . '/wp-admin/includes/plugin.php';
