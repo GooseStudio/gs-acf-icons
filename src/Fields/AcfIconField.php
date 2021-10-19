@@ -351,26 +351,25 @@ class AcfIconField extends acf_field
 
         }
         list($library, $css, $style) = explode(':', $value);
-        //                    'choices'       => ['class' => 'CSS Class', 'svg_sprite_url' => 'SVG Sprite URL', 'svg_url' => 'SVG URL', 'svg_raw' => 'Raw SVG'],
         $css_class = str_replace('%', $css, $style);
         if ($css_class === $style) {
             $css_class = $style . ' ' . $css;
         }
         switch ($field['return_format']) {
         case 'svg_sprite_url':
+	        $svg = '';
             if ('ionicons' === $library) {
                 $svg = 'ionicons.svg#' . $css_class;
             } elseif ('font-awesome' === $library) {
                 $f_type = substr($style, 0, 3);
                 if ($f_type === 'fas') {
-                     $sprites = 'solid';
+                     $svg = 'solid.svg';
                 } else if ($f_type === 'far') {
-                    $sprites = 'regular';
+                    $svg = 'regular.svg';
                 } else {
-                    $sprites = 'brands';
+                    $svg = 'brands.svg';
                 }
-                    return $this->get_svg_url_path($library, $css, $sprites, $css);
-
+                $svg=$svg.'#'.$css;
             } elseif ('elementor' === $library) {
                 $svg = 'eicons.svg#' . trim($css_class);
             }
@@ -403,6 +402,7 @@ class AcfIconField extends acf_field
      */
     public function get_svg_file_path($library, $css, $css_class)
     {
+	    $sprites = '';
         if ('ionicons' === $library) {
             $sprites = 'ionicons';
         } elseif ('font-awesome' === $library) {
@@ -414,6 +414,7 @@ class AcfIconField extends acf_field
             } else {
                 $sprites = 'brands';
             }
+	        $css_class=$css;
         } elseif ('elementor' === $library) {
             $css_class = trim($css_class);
             $sprites = 'eicons';
@@ -421,7 +422,7 @@ class AcfIconField extends acf_field
 
         $dir       = $this->get_base_dir($library . '/');
         $file_path = $dir . $css . '.svg';
-        if (! file_exists($file_path) ) {
+        if (! file_exists($file_path) && $sprites) {
             $xml    = simplexml_load_file(sprintf(GS_ACF_ICONS_DIR . '/assets/dependencies/%s/sprites/%s.svg', $library, $sprites));
             $symbol = $xml->xpath("//*[@id=\"$css_class\"]");
             $svg = str_replace('symbol', 'svg', $symbol[0]->asXML());
@@ -432,7 +433,7 @@ class AcfIconField extends acf_field
         return $file_path;
     }
 
-    public function get_svg_url_path( $library, $css, $sprites, $css_class )
+    public function get_svg_url_path( $library, $css, $css_class )
     {
         $dir       = $this->get_base_dir($library . '/');
         $file_path = $dir . $css . '.svg';
