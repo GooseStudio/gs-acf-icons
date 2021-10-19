@@ -312,7 +312,13 @@ class AcfIconField extends acf_field {
 			case 'svg_path':
 				return $this->get_svg_file_path( $library, $css, $css_class );
 			case 'svg_raw':
-				return file_get_contents( $this->get_svg_file_path( $library, $css, $css_class ) );
+				global $wp_filesystem;
+				if ( empty( $wp_filesystem ) ) {
+					require_once ABSPATH . '/wp-admin/includes/file.php';
+					WP_Filesystem();
+				}
+
+				return $wp_filesystem->get_contents( $this->get_svg_file_path( $library, $css, $css_class ) );
 			default:
 				return $css_class;
 		}
@@ -391,7 +397,13 @@ class AcfIconField extends acf_field {
 			$symbol = $xml->xpath( "//*[@id=\"$css_class\"]" );
 			$svg    = str_replace( 'symbol', 'svg', $symbol[0]->asXML() );
 			$svg    = str_replace( '<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', $svg );
-			file_put_contents( $file_path, $svg );
+			global $wp_filesystem;
+			if ( empty( $wp_filesystem ) ) {
+				require_once ABSPATH . '/wp-admin/includes/file.php';
+				WP_Filesystem();
+			}
+
+			$wp_filesystem->put_contents( $file_path, $svg, 0644 );
 		}
 
 		return $file_path;
