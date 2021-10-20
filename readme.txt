@@ -11,6 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 == Description ==
 The ACF icon plugin adds a new field to ACF that enables users to select an icon from a popup.
+It works with ACF Repeater fields.
 It supports both font icons and SVG icons. You can select if the field should return
 * CSS class
 * SVG url fragment
