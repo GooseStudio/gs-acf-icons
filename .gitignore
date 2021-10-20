@@ -78,7 +78,6 @@ fabric.properties
 composer.phar
 /vendor/
 
-*log.txt
 /releases/*
 !/releases/.gitkeep
 .env
