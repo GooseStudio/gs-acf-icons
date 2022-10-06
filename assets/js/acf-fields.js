@@ -173,6 +173,17 @@ acf.addAction(
                 if (library_list_wrapper.length === 0) {
                     return;
                 }
+                $('.gs-acf-icon-field-remove').on('click', function () {
+                    $('#icon_css').val('');
+                    $('#icon_style').val('');
+                    $('#icon_library').val('');
+                    let acf_field = $(this).data('acf-field');
+                    $('#' + acf_field).val('');
+                    $('div[data-acf-field="' + acf_field+'"]').html('');
+                    current = $(this).closest('.acf-input');
+                    acf_field = current.find('input').first();
+                    acf_field.val('')
+                });
 
                 $('.gs-acf-icon-field,.gs-acf-icon-field-select').on(
                     'click', function (e) {
