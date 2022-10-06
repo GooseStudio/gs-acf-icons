@@ -1,7 +1,7 @@
 === GS ACF Icons ===
 Contributors: andreasnrb, goosestudio
 Tags: acf, icons, advanced custom fields
-Stable tag: 0.1.3
+Stable tag: 0.2
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
@@ -40,6 +40,10 @@ If you are using ACF functions the_field() with you need to enqueue the required
 Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the correct CSS handle for the selected icon.
 
 == Changelog ==
+= 0.2 =
+* Add Font Awesome Pro support (Partial 6.2)
+* Fix issue with trash can click not removing icon
+
 = 0.1.3 =
 * Add on request SVG generation
 * Add usage instructions
