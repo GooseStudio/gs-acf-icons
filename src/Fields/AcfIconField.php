@@ -64,6 +64,27 @@ class AcfIconField extends acf_field {
 	}
 
 	/**
+	 * Returns JS file handle for the supplied CSS class if JS file is required.
+	 *
+	 * @param string $css_class The CSS class for the icon.
+	 *
+	 * @return string
+	 */
+	public static function get_js_handle( $css_class ) {
+		$prefix = substr( $css_class, 0, 7 );
+		switch ( $prefix ) {
+			case 'fa-soli':
+			case 'fa-bran':
+			case 'fa-regu':
+			case 'fa-thin':
+			case 'fa-ligh':
+				return 'font-awesome-pro';
+		}
+
+		return '';
+	}
+
+	/**
 	 * Registers field settings.
 	 *
 	 * @param array $field The field to configure.
@@ -93,7 +114,15 @@ class AcfIconField extends acf_field {
 					'svg_raw'        => 'Raw SVG',
 				),
 				'name'         => 'return_format',
-				'ui'           => 1,
+			)
+		);
+		acf_render_field_setting(
+			$field,
+			array(
+				'label'        => __( 'Font Awesome Pro Kit ID', 'gs-acf' ),
+				'instructions' => __( 'If you want to include Font Awesome Pro in the icon select popup enter the ID here.', 'gs-acf' ),
+				'type'         => 'text',
+				'name'         => 'font_awesome_pro_kit_id',
 			)
 		);
 	}
@@ -137,11 +166,71 @@ class AcfIconField extends acf_field {
 		}
 		$url     = $this->settings['url'];
 		$version = $this->settings['version'];
+		$deps    = array();
+
+		$pro_id = get_option( 'font-awesome-pro-kit-id' );
+		if ( $pro_id ) {
+			wp_register_script(
+				'gs-acfe-fields-mappings-fa-pro',
+				// "{$url}assets/dependencies/mappings.js",
+				"{$url}assets/dependencies/font-awesome-pro/pro-mappings.js",
+				array( 'font-awesome-6-pro' ), // 'font-awesome-5-pro'
+				$version,
+				true
+			);
+
+			$deps[] = 'gs-acfe-fields-mappings-fa-pro';
+			add_filter(
+				'gs_acf_icons_icon_libraries',
+				function( $icon_libraries ) {
+					foreach ( $icon_libraries as $key => $icon_library ) {
+						if ( strpos( $icon_library['value'], 'font-awesome:' ) !== false ) {
+							unset( $icon_libraries[ $key ] );
+						}
+					}
+					array_unshift(
+						$icon_libraries,
+						array(
+							'id'    => 'fa-regular',
+							'label' => 'Font Awesome Pro - Regular',
+							'value' => 'font-awesome-pro:regular',
+						),
+						array(
+							'id'    => 'fa-solid',
+							'label' => 'Font Awesome Pro - Solid',
+							'value' => 'font-awesome-pro:solid',
+						),
+						array(
+							'id'    => 'fa-light',
+							'label' => 'Font Awesome Pro - Light',
+							'value' => 'font-awesome-pro:light',
+						),
+						array(
+							'id'    => 'fa-thin',
+							'label' => 'Font Awesome Pro - Thin',
+							'value' => 'font-awesome-pro:thin',
+						),
+						array(
+							'id'    => 'fa-duotone',
+							'label' => 'Font Awesome Pro - Duotone',
+							'value' => 'font-awesome-pro:duotone',
+						),
+						array(
+							'id'    => 'fa-brands',
+							'label' => 'Font Awesome Pro - Brands',
+							'value' => 'font-awesome-pro:brands',
+						)
+					);
+					return $icon_libraries;
+				}
+			);
+		}
 
 		wp_register_script(
 			'gs-acfe-fields-mappings',
-			"{$url}assets/dependencies/mappings.js",
-			array(),
+			// "{$url}assets/dependencies/mappings.js",
+			"{$url}assets/dependencies/free-mappings.js",
+			$deps, // 'font-awesome-5-pro'
 			$version,
 			true
 		);
@@ -197,30 +286,47 @@ class AcfIconField extends acf_field {
 						<input id="all" type="radio" value="all:" checked="checked" name="library"><label for="all">All
 							icons</label>
 					</div>
-					<div class="icon-library-selection">
-						<input id="far" type="radio" value="font-awesome:regular" name="library"><label for="far">Font
-							Awesome - Regular</label>
-					</div>
-					<div class="icon-library-selection">
-						<input id="fas" type="radio" value="font-awesome:solid" name="library"><label for="fas">Font
-							Awesome - Solid</label>
-					</div>
-					<div class="icon-library-selection">
-						<input id="fab" type="radio" value="font-awesome:brands" name="library"><label for="fab">Font
-							Awesome - Brands</label>
-					</div>
-					<div class="icon-library-selection">
-						<input id="eicon" type="radio" value="elementor:regular" name="library"><label for="eicon">Elementor
-							Icons</label>
-					</div>
-					<div class="icon-library-selection">
-						<input id="ios" type="radio" value="ionicons:ios" name="library"><label for="ios">Ionicons -
-							iOS</label>
-					</div>
-					<div class="icon-library-selection">
-						<input id="md" type="radio" value="ionicons:md" name="library"><label for="md">Ionicons -
-							Material </label>
-					</div>
+					<?php
+					$icon_libraries = array(
+						array(
+							'id'    => 'far',
+							'label' => 'Font Awesome - Regular',
+							'value' => 'font-awesome:regular',
+						),
+						array(
+							'id'    => 'fas',
+							'label' => 'Font Awesome - Solid',
+							'value' => 'font-awesome:solid',
+						),
+						array(
+							'id'    => 'fab',
+							'label' => 'Font Awesome - Brands',
+							'value' => 'font-awesome:brands',
+						),
+						array(
+							'id'    => 'eicon',
+							'label' => 'Elementor - Regular',
+							'value' => 'elementor:regular',
+						),
+						array(
+							'id'    => 'ios',
+							'label' => 'Ionicons - Regular',
+							'value' => 'ionicons:ios',
+						),
+						array(
+							'id'    => 'md',
+							'label' => 'Ionicons - Material',
+							'value' => 'ionicons:md',
+						),
+					);
+					$icon_libraries = apply_filters( 'gs_acf_icons_icon_libraries', $icon_libraries )
+					?>
+					<?php foreach ( $icon_libraries as $icon_library ) : ?>
+						<div class="icon-library-selection">
+							<input id="<?php echo esc_attr( $icon_library['id'] ); ?>" type="radio" value="<?php echo esc_attr( $icon_library['value'] ); ?>" name="library">
+							<label for="<?php echo esc_attr( $icon_library['id'] ); ?>"><?php echo esc_html( $icon_library['label'] ); ?></label>
+						</div>
+					<?php endforeach; ?>
 				</div>
 				<div class="icon-library-frame-content">
 					<input type="hidden" name="icon_library" id="icon_library" value="">

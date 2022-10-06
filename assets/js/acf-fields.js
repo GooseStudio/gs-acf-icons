@@ -1,4 +1,7 @@
-/* global jQuery, wp */
+/* global jQuery, wp, gs_cacf_font_data_pro */
+let temp_gs_cacf_font_data_pro  = typeof gs_cacf_font_data_pro === 'undefined'  ?{}:gs_cacf_font_data_pro;
+const gs_cacf_font_data = Object.values({ ... gs_cacf_font_data_free, ... temp_gs_cacf_font_data_pro });
+
 let on_icon_click_fn = function (targetEl) {
     let target = jQuery(targetEl);
     target.parent().find('.selected').not(targetEl).removeClass('selected');

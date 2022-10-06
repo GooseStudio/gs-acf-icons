@@ -15,6 +15,5 @@
   },
   "minimum-stability": "dev",
   "require": {
-    "ext-simplexml": "*"
   }
 }
