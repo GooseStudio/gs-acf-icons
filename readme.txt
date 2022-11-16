@@ -40,6 +40,9 @@ If you are using ACF functions the_field() with you need to enqueue the required
 Use ACFIcon::get_css_handle(get_the_field('your-icon-field-id')) to retrieve the correct CSS handle for the selected icon.
 
 == Changelog ==
+= 0.2.1 =
+* Update Font Awesome Pro icon mappings
+
 = 0.2 =
 * Add Font Awesome Pro support (Partial 6.2)
 * Fix issue with trash can click not removing icon

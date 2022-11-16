@@ -3,7 +3,7 @@
  * Plugin Name: GS ACF Icons
  * Plugin URI: https://goose.studio/products/acf-icons/
  * Description: Extends ACF plugin with a new field, Icon.
- * Version: 0.2
+ * Version: 0.2.1
  * Author: Goose Studio
  * Author URI: https://goose.studio/
  * Copyright: Andreas Nurbo
@@ -51,7 +51,7 @@ if ( version_compare( PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION, '5.6', '<' ) 
 define( 'GS_ACF_ICONS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'GS_ACF_ICONS_PLUGIN_FILE__FILE', __FILE__ );
 define( 'GS_ACF_ICONS_DIR', __DIR__ );
-define( 'GS_ACF_ICONS_VERSION', '0.2' );
+define( 'GS_ACF_ICONS_VERSION', '0.2.1' );
 define( 'GS_ACF_ICONS_ASSET_VERSION', GS_ACF_ICONS_VERSION . '.1' );
 
 require __DIR__ . '/autoloader.php';
